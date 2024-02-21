@@ -41,10 +41,6 @@ async function getUserDataFromRequest(req) {
 
 }
 
-app.get('/test', (req,res) => {
-  res.json('test ok');
-});
-
 app.get('/messages/:userId', async (req,res) => {
   const {userId} = req.params;
   const userData = await getUserDataFromRequest(req);
@@ -74,7 +70,7 @@ app.get('/profile', (req,res) => {
 });
 
 app.post('/login', async (req,res) => {
-  const {username, password} = req.body;
+  const {email, username, password} = req.body;
   const foundUser = await User.findOne({username});
   if (foundUser) {
     const passOk = bcrypt.compareSync(password, foundUser.password);
@@ -93,10 +89,11 @@ app.post('/logout', (req,res) => {
 });
 
 app.post('/register', async (req,res) => {
-  const {username,password} = req.body;
+  const {email,username,password} = req.body;
   try {
     const hashedPassword = bcrypt.hashSync(password, bcryptSalt);
     const createdUser = await User.create({
+      email:email,
       username:username,
       password:hashedPassword,
     });
