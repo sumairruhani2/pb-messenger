@@ -11,12 +11,16 @@
   },
   "scripts": {
     "prepare": "husky && husky install",
-    "lint": "eslint . && eslint --fix ."
+    "lint": "eslint . && eslint --fix .",
+    "test": ""
   },
   "lint-staged": {
     "*.{js, jsx}": [
       "prettier --write .",
       "eslint --fix ."
     ]
+  },
+  "dependencies": {
+    "jest": "^29.7.0"
   }
 }
